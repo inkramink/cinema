@@ -4,6 +4,7 @@ from flask_login import login_user, login_required, logout_user
 from data.users import User
 from data import db_session
 from flask_login import LoginManager
+from do_hire import load_hire_to_html
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
@@ -51,6 +52,10 @@ def reqister():
         return redirect('/login')
     return render_template('register.html', title='Регистрация', form=form)
 
+@app.route('/hire')
+def hire():
+    load_hire_to_html()
+    return render_template('hire.html', title='Aфиша')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
