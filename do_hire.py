@@ -16,10 +16,9 @@ def make_hire():
                     <a href=""" + """""""" + str(
             i) + """""""" + """ class="new-list__item-link" data-test="ITEM-URL">""" + fil[i][0] + """</a>"""
 
-        # strok += """\n<img src=""" + f'"photos/{fil[i][1]}"' + """>"""
+        strok += """\n                  <p><img src=""" + f'"../photos/{fil[i][1]}" alt="{fil[i][0]}"' + """/></p>"""
         strok += """\n                </h3>
                     </div>"""
-        print(f'photos/{fil[i][1]}')
 
     strok += """
         </div>
