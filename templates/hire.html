@@ -5,31 +5,14 @@
 <form action="" method="post">
     <div class="new-list list-place" data-test="list">
         <div class="new-list__item new-list-place__item" data-test="ITEM">
-
-            <div class="new-list__item-info" style="height:100px; width:1024px; background:#ccccff">
-                <h3>
-                    <a href=0 class="new-list__item-link" data-test="ITEM-URL">Райя и последний дракон</a>
-                  <p><img src="../photos/raya.jpg" alt="Райя и последний дракон"/></p>
-                </h3>
-                    </div>
-            <div class="new-list__item-info" style="height:100px; width:1024px; background:#ccccff">
-                <h3>
-                    <a href=1 class="new-list__item-link" data-test="ITEM-URL">Душа</a>
-                  <p><img src="../photos/soul.jpg" alt="Душа"/></p>
-                </h3>
-                    </div>
-            <div class="new-list__item-info" style="height:100px; width:1024px; background:#ccccff">
-                <h3>
-                    <a href=2 class="new-list__item-link" data-test="ITEM-URL">Конек-горбунок</a>
-                  <p><img src="../photos/horse.jpg" alt="Конек-горбунок"/></p>
-                </h3>
-                    </div>
-            <div class="new-list__item-info" style="height:100px; width:1024px; background:#ccccff">
-                <h3>
-                    <a href=3 class="new-list__item-link" data-test="ITEM-URL">Том и Джерри</a>
-                  <p><img src="../photos/tom.jpg" alt="Том и Джерри"/></p>
-                </h3>
-                    </div>
+            {% for i in hire %}
+                <div class="new-list__item-info" style="height:100px; width:1024px; background:#ccccff">
+                    <h3>
+                        <a href={{i[0]}} class="new-list__item-link" data-test="ITEM-URL">{{i[1]}}</a>
+                        <p><img src="../photos/{{i[3]}}" alt="{{i[1]}}"/></p>
+                    </h3>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </form>
