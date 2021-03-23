@@ -1,10 +1,11 @@
-from flask import Flask, render_template, redirect
-from forms.user import RegisterForm, LoginForm
-from flask_login import login_user, login_required, logout_user
-from data.users import User
+from flask import Flask, render_template, redirect, request, abort
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+
 from data import db_session
-from flask_login import LoginManager
-import sqlite3
+from forms.user import RegisterForm, LoginForm
+from data.users import User
+from data.films import Films
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -19,13 +20,13 @@ def load_user(user_id):
 
 
 def main():
-    # db_session.global_init("db/blogs.db")
+    db_session.global_init("db/ciname.db")
     app.run()
 
 
 @app.route("/")
 def index():
-    # db_sess = db_session.create_session()
+    db_sess = db_session.create_session()
     return render_template("base.html")
 
 
@@ -44,8 +45,9 @@ def reqister():
                                    message="Такой пользователь уже есть")
         user = User(
             name=form.name.data,
+            surname=form.surname.data,
             email=form.email.data,
-            about=form.about.data
+            age=form.age.data
         )
         user.set_password(form.password.data)
         db_sess.add(user)
@@ -56,10 +58,8 @@ def reqister():
 
 @app.route('/hire')
 def hire():
-    con = sqlite3.connect("data/hire.db")
-    cur = con.cursor()
-    result = cur.execute("""SELECT * FROM films""").fetchall()
-    con.close()
+    db_sess = db_session.create_session()
+    result = db_sess.query(Films).all()
     return render_template('hire.html', title='Aфиша', hire=result)
 
 
@@ -87,3 +87,4 @@ def logout():
 
 if __name__ == '__main__':
     main()
+

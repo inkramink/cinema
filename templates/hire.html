@@ -8,8 +8,8 @@
             {% for i in hire %}
                 <div class="new-list__item-info" style="height:100px; width:1024px; background:#ccccff">
                     <h3>
-                        <a href={{i[0]}} class="new-list__item-link" data-test="ITEM-URL">{{i[1]}}</a>
-                        <p><img src="../photos/{{i[3]}}" alt="{{i[1]}}"/></p>
+                        <a href={{i.name}} class="new-list__item-link" data-test="ITEM-URL">{{i.name}}</a>
+                        <p><img src="../static/img/films/{{i.image_route}}" alt="{{i.name}}" class="poster_img"/></p>
                     </h3>
                 </div>
             {% endfor %}
