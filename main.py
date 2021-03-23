@@ -20,7 +20,7 @@ def load_user(user_id):
 
 
 def main():
-    db_session.global_init("db/ciname.db")
+    db_session.global_init("db/cinema.db")
     app.run()
 
 
@@ -87,4 +87,12 @@ def logout():
 
 if __name__ == '__main__':
     main()
+    """
+    db_sess = db_session.create_session()
+    result = db_sess.query(User).all()
+    for us in result:
+        print(us.name)
+    
+    """
+
 
