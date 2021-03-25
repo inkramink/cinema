@@ -24,7 +24,7 @@ def main():
     app.run()
 
 
-@app.route("/")
+@app.route('/', methods=['GET'])
 def index():
     db_sess = db_session.create_session()
     return render_template("base.html")

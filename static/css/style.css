@@ -25,3 +25,11 @@ form.login_form {
     border-radius: 5px;
     padding: 10px;
 }
+
+nav {
+    display: block;
+}
+
+.container {
+    flex-flow: wrap;
+}
