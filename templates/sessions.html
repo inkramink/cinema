@@ -4,26 +4,31 @@
 <h1 style="height:100px; width:1024px; background:#e6a8d7">Фильмы в прокате сегодня</h1>
 <form action="" method="post">
     <div class="new-list list-place" data-test="list">
-        <div class="new-list__item new-list-place__item" data-test="ITEM">
+        <div class="new-list__item new-list-place__item" data-test="ITEM" style="position: relative;">
             {% for i in hire %}
-            <div class="new-list__item-info" style="height:300px; width:1024px; background:#ccccff">
-                <h3>
-                    <a href={{i.name}} class="new-list__item-link" data-test="ITEM-URL">{{i.name}}</a>
-                    <p><img src="../static/img/films/{{i.image_route}}" alt="{{i.name}}" class="poster_img"/></p>
-                    <div class="time_block">
-                        {% for j in sess[i.name] %}
-                        <div class="item buy_seance"
-                             style="height:200px; width:100px; background:#eeeeee; position: relative; bottom: {{(i.id - 1) * (-4) + 160 + j[2] * 50}}px; right: {{j[2] * (-35) - 150}}px">
-                            <div class="time">{{j[0]}}
-                                <p class="price">450</p>
-                                <p class="hall">
-                                    <span>Зал {{j[1] + 1}}</span>
-                                </p>
-                            </div>
+            <div class="new-list__item-info" style="height: 40%; width:90%; background:#ccccff; margin: 2%; padding: 0.5%">
+                <h3 href={{i.name}} class="new-list__item-link" data-test="ITEM-URL">{{i.name}}</h3>
+                <p><img src="../static/img/films/{{i.image_route}}" alt="{{i.name}}" class="poster_img"/></p>
+                <div class="time_block">
+
+                    <table style="width: 100%">
+                    <tr>
+                    {% for j in sess[i.name] %}
+                    <th>
+                    <div class="item buy_seance"
+                        style="height: 90px; width:65px; background:#eeeeee;">
+                        <div class="time">
+                            {{j[0]}}
+                            <p class="price">450</p>
+                            <p class="price">Зал {{j[1] + 1}}</p>
                         </div>
-                        {% endfor %}
                     </div>
-                </h3>
+                    </th>
+                    {% endfor %}
+                    </tr>
+                </table>
+
+                </div>
             </div>
             {% endfor %}
         </div>
