@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 style="height:100px; width:1024px; background:#e6a8d7">Фильмы в прокате сегодня</h1>
+<form action="" method="post">
+    <div class="new-list list-place" data-test="list">
+        <div class="new-list__item new-list-place__item" data-test="ITEM">
+            {% for i in hire %}
+            <div class="new-list__item-info" style="height:300px; width:1024px; background:#ccccff">
+                <h3>
+                    <a href={{i.name}} class="new-list__item-link" data-test="ITEM-URL">{{i.name}}</a>
+                    <p><img src="../static/img/films/{{i.image_route}}" alt="{{i.name}}" class="poster_img"/></p>
+                    <div class="time_block">
+                        {% for j in sess[i.name] %}
+                        <div class="item buy_seance"
+                             style="height:200px; width:100px; background:#eeeeee; position: relative; bottom: {{(i.id - 1) * (-4) + 160 + j[2] * 50}}px; right: {{j[2] * (-35) - 150}}px">
+                            <div class="time">{{j[0]}}
+                                <p class="price">450</p>
+                                <p class="hall">
+                                    <span>Зал {{j[1] + 1}}</span>
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </h3>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</form>
+{% endblock %}

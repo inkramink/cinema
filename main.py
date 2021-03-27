@@ -5,7 +5,7 @@ from data import db_session
 from forms.user import RegisterForm, LoginForm
 from data.users import User
 from data.films import Films
-
+from data import schedule
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -63,6 +63,16 @@ def hire():
     return render_template('hire.html', title='Aфиша', hire=result)
 
 
+@app.route('/sessions')
+def sessions():
+    sessions_for_films = schedule.remake_shedule()
+    db_sess = db_session.create_session()
+    result = db_sess.query(Films).all()
+    return render_template('sessions.html', title='Фильмы в прокате сегодня', hire=result, sess=sessions_for_films)
+    # f = open("../static/schedule.txt", encoding='windows-1251').read()
+    # print(f)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -94,5 +104,3 @@ if __name__ == '__main__':
         print(us.name)
     
     """
-
-

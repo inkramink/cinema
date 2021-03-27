@@ -17,4 +17,4 @@ class Films(SqlAlchemyBase, UserMixin):
     description = sqlalchemy.Column(sqlalchemy.String, nullable=True, default='Film')
 
     def __repr__(self):
-        return f'<Film> {self.id} {self.name}'
+        return f'<Film> {self.id} {self.name} {self.length}'
