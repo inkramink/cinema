@@ -14,7 +14,7 @@ times = [int(i[2]) + 10 for i in result]
 
 
 def xxx():
-    f = open("../static/schedule.txt", 'w')  # , encoding='windows-1251')
+    f = open("static/schedule.txt", 'w')
     f.write(str(datetime.datetime.now().date()) + '\n')
     sredn = sum(times) // len(times)
     day = (25 - 8) * 60
