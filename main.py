@@ -66,9 +66,9 @@ def hire():
 
 @app.route('/sessions')
 def sessions():
+    sessions_for_films = schedule.remake_shedule()
     db_sess = db_session.create_session()
     result = db_sess.query(Films).all()
-    sessions_for_films = schedule.remake_shedule()
     return render_template('sessions.html', title='Фильмы в прокате сегодня', hire=result, sess=sessions_for_films)
     # f = open("../static/schedule.txt", encoding='windows-1251').read()
     # print(f)
