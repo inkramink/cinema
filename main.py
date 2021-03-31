@@ -6,6 +6,7 @@ from forms.user import RegisterForm, LoginForm
 from data.users import User
 from data.films import Films
 from data import schedule
+import requests
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -71,6 +72,13 @@ def sessions():
     return render_template('sessions.html', title='Фильмы в прокате сегодня', hire=result, sess=sessions_for_films)
     # f = open("../static/schedule.txt", encoding='windows-1251').read()
     # print(f)
+
+
+@app.route('/reservation')
+def reservation():
+    title = request.args.get('title')
+    time = request.args.get('time')
+    return render_template('reservation.html', title=title, time=time)
 
 
 @app.route('/login', methods=['GET', 'POST'])
