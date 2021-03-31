@@ -76,4 +76,17 @@ def remake_shedule():
             f = f[:x] + f[x:x + len(list(i))].upper() + f[x + len(list(i)):]
         sessions_for_films[i] = sorted([i for i in sessions_for_films[i]],
                                        key=lambda m: int(m[0].split(':')[0]) * 60 + int(m[0].split(':')[1]))
+
+    con = sqlite3.connect("db/cinema.db")
+    cur = con.cursor()
+    cur.execute("""DELETE FROM sessions""")
+    for i in sessions_for_films.keys():
+        for j in sessions_for_films[i]:
+            try:
+                cur.execute(
+                    f"INSERT INTO sessions(hall,name,time,places) VALUES({j[1]},'{i}','{j[0]}',0)")
+            except sqlite3.IntegrityError:
+                pass
+    con.commit()
+    con.close()
     return sessions_for_films
