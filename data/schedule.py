@@ -14,6 +14,7 @@ times = [int(i[2]) + 10 for i in result]
 
 sessions_for_films = {}
 
+
 def do_sessions_for_films():
     global sessions_for_films
     n = 0
@@ -59,15 +60,17 @@ def xxx():
             time += times[x]
             names[list(names.keys())[x]] += 1
         f.write(f"{i}: {str(rasp_of_halls[i])}\n")
+    f.close()
     do_sessions_for_films()
     con = sqlite3.connect("db/cinema.db")
     cur = con.cursor()
     cur.execute("""DELETE FROM sessions""")
+    kol_places = [i[1] * i[2] for i in cur.execute("""SELECT * FROM halls""").fetchall()]
     for i in sessions_for_films.keys():
         for j in sessions_for_films[i]:
             try:
                 cur.execute(
-                    f"INSERT INTO sessions(hall,name,time,places) VALUES({j[1]},'{i}','{j[0]}',0)")
+                    f"INSERT INTO sessions(hall,name,time,places) VALUES({j[1]},'{i}','{j[0]}','{'0' * kol_places[int(j[1])]}')")
             except sqlite3.IntegrityError:
                 pass
     con.commit()
