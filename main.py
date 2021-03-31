@@ -5,6 +5,7 @@ from data import db_session
 from forms.user import RegisterForm, LoginForm
 from data.users import User
 from data.films import Films
+from data.halls import Hall
 from data.sessions import Sessions
 from data import schedule
 import requests
@@ -81,8 +82,14 @@ def reservation():
     title = request.args.get('title')
     time = request.args.get('time')
     result = db_sess.query(Sessions).filter_by(name=title, time=time).first()
-    print(result)
-    return render_template('reservation.html', title=title, time=time)
+    hall = db_sess.query(Hall).filter_by(id=result.hall).first()
+    rows, cols = hall.rows, hall.columns
+    seats = [[False for j in range(cols)] for i in range(rows)]
+    for i in range(rows):
+        for j in range(cols):
+            if result.places[i * cols + j] == '1':
+                seats[i][j] = True
+    return render_template('reservation.html', title=title, time=time, seats=seats, rows=rows, cols=cols)
 
 
 @app.route('/login', methods=['GET', 'POST'])

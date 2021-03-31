@@ -2,4 +2,31 @@
 
 {% block content %}
 <h1>{{title}}, {{time}}</h1>
+{% for i in range(rows) %}
+    <p>Ряд {{i + 1}}</p>
+    <div class="time_block">
+        <table style="width: 100%">
+            <tr>
+                {% for j in range(cols) %}
+                <th>
+                    {% if seats[i][j] == true %}
+                        <div class="item buy_seance"
+                            style="height: 50px; width:50px; background:#eeeeee;">
+                            <div class="time">
+                                {{j + 1}}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="item buy_seance"
+                            style="height: 50px; width:50px; background:#ffcc00;">
+                            <div class="time">
+                                {{j + 1}}
+                            </div>
+                        </div>
+                    {% endif %}
+                </th>
+                {% endfor %}
+            </tr>
+        </table>
+{% endfor %}
 {% endblock %}
