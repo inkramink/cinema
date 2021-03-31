@@ -12,8 +12,11 @@ for i in result:
     names[i[1]] = 0
 times = [int(i[2]) + 10 for i in result]
 
+sessions_for_films = {}
+
 
 def xxx():
+    global sessions_for_films
     f = open("static/schedule.txt", 'w')
     f.write(str(datetime.datetime.now().date()) + '\n')
     sredn = sum(times) // len(times)
@@ -38,6 +41,37 @@ def xxx():
             names[list(names.keys())[x]] += 1
         f.write(f"{i}: {str(rasp_of_halls[i])}\n")
 
+    n = 0
+    f = open("static/schedule.txt", encoding='windows-1251').read()
+    for i in names.keys():
+        sessions_for_films[i] = []
+        for j in range(f.count(i)):
+            x = f.find(i)
+            y = f[:x].rfind('{')
+            y = f[y - 3:y - 2]
+            try:
+                l = int(f[x - 9:x - 7])
+                time = f[x - 9: x - 4]
+            except ValueError:
+                time = f[x - 8: x - 4]
+            sessions_for_films[i].append([time, int(y), n])
+            n += 1
+            f = f[:x] + f[x:x + len(list(i))].upper() + f[x + len(list(i)):]
+        sessions_for_films[i] = sorted([i for i in sessions_for_films[i]],
+                                       key=lambda m: int(m[0].split(':')[0]) * 60 + int(m[0].split(':')[1]))
+    con = sqlite3.connect("db/cinema.db")
+    cur = con.cursor()
+    cur.execute("""DELETE FROM sessions""")
+    for i in sessions_for_films.keys():
+        for j in sessions_for_films[i]:
+            try:
+                cur.execute(
+                    f"INSERT INTO sessions(hall,name,time,places) VALUES({j[1]},'{i}','{j[0]}',0)")
+            except sqlite3.IntegrityError:
+                pass
+    con.commit()
+    con.close()
+
 
 halls = 5
 rasp_of_halls = {}
@@ -57,36 +91,4 @@ def do():
 
 def remake_shedule():
     do()
-    sessions_for_films = {}
-    n = 0
-    f = open("static/schedule.txt", encoding='windows-1251').read()
-    for i in names.keys():
-        sessions_for_films[i] = []
-        for j in range(f.count(i)):
-            x = f.find(i)
-            y = f[:x].rfind('{')
-            y = f[y - 3:y - 2]
-            try:
-                l = int(f[x - 9:x - 7])
-                time = f[x - 9: x - 4]
-            except ValueError:
-                time = f[x - 8: x - 4]
-            sessions_for_films[i].append([time, int(y), n])
-            n += 1
-            f = f[:x] + f[x:x + len(list(i))].upper() + f[x + len(list(i)):]
-        sessions_for_films[i] = sorted([i for i in sessions_for_films[i]],
-                                       key=lambda m: int(m[0].split(':')[0]) * 60 + int(m[0].split(':')[1]))
-
-    con = sqlite3.connect("db/cinema.db")
-    cur = con.cursor()
-    cur.execute("""DELETE FROM sessions""")
-    for i in sessions_for_films.keys():
-        for j in sessions_for_films[i]:
-            try:
-                cur.execute(
-                    f"INSERT INTO sessions(hall,name,time,places) VALUES({j[1]},'{i}','{j[0]}',0)")
-            except sqlite3.IntegrityError:
-                pass
-    con.commit()
-    con.close()
     return sessions_for_films
