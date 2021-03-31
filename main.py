@@ -5,6 +5,7 @@ from data import db_session
 from forms.user import RegisterForm, LoginForm
 from data.users import User
 from data.films import Films
+from data.sessions import Sessions
 from data import schedule
 import requests
 
@@ -76,8 +77,11 @@ def sessions():
 
 @app.route('/reservation')
 def reservation():
+    db_sess = db_session.create_session()
     title = request.args.get('title')
     time = request.args.get('time')
+    result = db_sess.query(Sessions).filter_by(name=title, time=time).first()
+    print(result)
     return render_template('reservation.html', title=title, time=time)
 
 
