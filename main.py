@@ -98,7 +98,10 @@ def buy():
     time = request.args.get('time')
     place = request.args.get('place')
     col = request.args.get('col')
-    return render_template('buy_seat.html', title=title, time=time, place=place, col=col)
+    logged = False
+    if current_user.is_authenticated:
+        logged = True
+    return render_template('buy_seat.html', title=title, time=time, place=place, col=col, logged=logged)
 
 
 @app.route('/reservation/bought')
