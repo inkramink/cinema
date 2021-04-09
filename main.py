@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
-
+from alice import say
 from data import db_session
 from forms.user import RegisterForm, LoginForm
 from data.users import User
@@ -118,6 +118,9 @@ def bought():
     db_sess.query(Sessions).filter_by(id=sess_id).update({Sessions.places: seats}, synchronize_session=False)
     db_sess.commit()
     print('Купили место ' + place + ' в ряду ' + col)
+    say('Вы купили место ' + place + ' в ряду ' + col +
+        ' на сеанс ' + title + ' в ' + time +
+        ' в зале номер ' + str(int(hall.id) + 1) + ' стоимостью 0 рублей')
     return redirect(url_for('.reservation', title=title, time=time))
 
 
