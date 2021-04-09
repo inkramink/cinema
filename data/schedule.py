@@ -37,7 +37,7 @@ def do_sessions_for_films():
                                        key=lambda m: int(m[0].split(':')[0]) * 60 + int(m[0].split(':')[1]))
 
 def xxx():
-    f = open("static/schedule.txt", 'w')
+    f = open("static/schedule.txt", 'w', encoding="utf-8")
     f.write(str(datetime.datetime.now().date()) + '\n')
     sredn = sum(times) // len(times)
     day = (25 - 8) * 60
