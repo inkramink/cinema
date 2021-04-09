@@ -71,8 +71,6 @@ def sessions():
     sessions_for_films = schedule.remake_shedule()
     db_sess = db_session.create_session()
     result = db_sess.query(Films).all()
-    for i in result:
-        print(' '.join([j for j in sessions_for_films[i.name]]))
     return render_template('sessions.html', title='Фильмы в прокате сегодня', hire=result, sess=sessions_for_films)
     # f = open("../static/schedule.txt", encoding='windows-1251').read()
     # print(f)
@@ -100,8 +98,6 @@ def buy():
     time = request.args.get('time')
     place = request.args.get('place')
     col = request.args.get('col')
-    if request.method == 'POST':
-        print('Купили место')
     return render_template('buy_seat.html', title=title, time=time, place=place, col=col)
 
 
@@ -111,6 +107,16 @@ def bought():
     time = request.args.get('time')
     place = request.args.get('place')
     col = request.args.get('col')
+    db_sess = db_session.create_session()
+    result = db_sess.query(Sessions).filter_by(name=title, time=time).first()
+    sess_id = result.id
+    hall = db_sess.query(Hall).filter_by(id=result.hall).first()
+    rows, cols = hall.rows, hall.columns
+    seats = list(result.places)
+    seats[(int(col) - 1) * int(cols) + int(place) - 1] = '1'
+    seats = ''.join(seats)
+    db_sess.query(Sessions).filter_by(id=sess_id).update({Sessions.places: seats}, synchronize_session=False)
+    db_sess.commit()
     print('Купили место ' + place + ' в ряду ' + col)
     return redirect(url_for('.reservation', title=title, time=time))
 
