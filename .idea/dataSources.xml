@@ -7,5 +7,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\alvic\PycharmProjects\cinema\db\cinema.db</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="cinema [2]" uuid="f68dabf1-b2eb-48e7-a8f3-d2db632657e9">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\alvic\PycharmProjects\cinema_beta\db\cinema.db</jdbc-url>
+    </data-source>
   </component>
 </project>
