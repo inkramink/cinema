@@ -81,50 +81,54 @@ def reservation():
     db_sess = db_session.create_session()
     title = request.args.get('title')
     time = request.args.get('time')
-    result = db_sess.query(Sessions).filter_by(name=title, time=time).first()
-    hall = db_sess.query(Hall).filter_by(id=result.hall).first()
-    rows, cols = hall.rows, hall.columns
+    hall = request.args.get('hall')
+    result = db_sess.query(Sessions).filter_by(name=title, time=time, hall=int(hall)).first()
+    find_hall = db_sess.query(Hall).filter_by(id=int(hall)).first()
+    rows, cols = find_hall.rows, find_hall.columns
     seats = [[False for j in range(cols)] for i in range(rows)]
     for i in range(rows):
         for j in range(cols):
             if result.places[i * cols + j] == '1':
                 seats[i][j] = True
-    return render_template('reservation.html', title=title, time=time, seats=seats, rows=rows, cols=cols)
+    return render_template('reservation.html', title=title, time=time,
+                           hall=hall, seats=seats, rows=rows, cols=cols)
 
 
 @app.route('/reservation/buy')
 def buy():
     title = request.args.get('title')
     time = request.args.get('time')
+    hall = request.args.get('hall')
     place = request.args.get('place')
     col = request.args.get('col')
     logged = False
     if current_user.is_authenticated:
         logged = True
-    return render_template('buy_seat.html', title=title, time=time, place=place, col=col, logged=logged)
+    return render_template('buy_seat.html', title=title, time=time,
+                           hall=hall, place=place, col=col, logged=logged)
 
 
 @app.route('/reservation/bought')
 def bought():
     title = request.args.get('title')
     time = request.args.get('time')
+    hall = request.args.get('hall')
     place = request.args.get('place')
     col = request.args.get('col')
     db_sess = db_session.create_session()
-    result = db_sess.query(Sessions).filter_by(name=title, time=time).first()
+    result = db_sess.query(Sessions).filter_by(name=title, time=time, hall=int(hall)).first()
     sess_id = result.id
-    hall = db_sess.query(Hall).filter_by(id=result.hall).first()
-    rows, cols = hall.rows, hall.columns
+    find_hall = db_sess.query(Hall).filter_by(id=int(hall)).first()
+    rows, cols = find_hall.rows, find_hall.columns
     seats = list(result.places)
     seats[(int(col) - 1) * int(cols) + int(place) - 1] = '1'
     seats = ''.join(seats)
     db_sess.query(Sessions).filter_by(id=sess_id).update({Sessions.places: seats}, synchronize_session=False)
     db_sess.commit()
-    print('Купили место ' + place + ' в ряду ' + col)
-    return redirect(url_for('.reservation', title=title, time=time))
+    return redirect(url_for('.reservation', title=title, time=time, hall=hall))
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():

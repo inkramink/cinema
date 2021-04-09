@@ -4,8 +4,8 @@
 {% if logged == true %}
     <h2>Купить место {{place}} в ряду {{col}}?</h2>
     <p style="font-size:22px;">
-        <a href="/reservation/bought?title={{title}}&time={{time}}&place={{place}}&col={{col}}">Да</a>
-        <a style="margin-left:5%;" href="/reservation?title={{title}}&time={{time}}">Вернуться</a>
+        <a href="/reservation/bought?title={{title}}&time={{time}}&hall={{hall}}&place={{place}}&col={{col}}">Да</a>
+        <a style="margin-left:5%;" href="/reservation?title={{title}}&time={{time}}&hall={{hall}}">Вернуться</a>
     </p>
 {% else %}
     <h2>Вы не авторизованы.</h2>
