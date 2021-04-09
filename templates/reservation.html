@@ -20,7 +20,8 @@
                         <div class="item buy_seance"
                             style="height: 50px; width:50px; background:#ffcc00;">
                             <div class="time">
-                                {{j + 1}}
+                                <a href="/reservation/buy?title={{title}}&time={{time}}&place={{j + 1}}&col={{i + 1}}">
+                                    {{j + 1}}</a>
                             </div>
                         </div>
                     {% endif %}

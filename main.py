@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, abort
+from flask import Flask, render_template, redirect, request, url_for
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
 from data import db_session
@@ -92,7 +92,28 @@ def reservation():
     return render_template('reservation.html', title=title, time=time, seats=seats, rows=rows, cols=cols)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/reservation/buy')
+def buy():
+    title = request.args.get('title')
+    time = request.args.get('time')
+    place = request.args.get('place')
+    col = request.args.get('col')
+    if request.method == 'POST':
+        print('Купили место')
+    return render_template('buy_seat.html', title=title, time=time, place=place, col=col)
+
+
+@app.route('/reservation/bought')
+def bought():
+    title = request.args.get('title')
+    time = request.args.get('time')
+    place = request.args.get('place')
+    col = request.args.get('col')
+    print('Купили место ' + place + ' в ряду ' + col)
+    return redirect(url_for('.reservation', title=title, time=time))
+
+
+@app.route('/login', methods=['POST'])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
