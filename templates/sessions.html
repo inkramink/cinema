@@ -1,38 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 style="height:100px; width:1024px; background:#e6a8d7">Фильмы в прокате сегодня</h1>
+<h1 class='header_of_page'>Фильмы в прокате сегодня</h1>
 <form action="" method="post">
     <div class="new-list list-place" data-test="list">
-        <div class="new-list__item new-list-place__item" data-test="ITEM" style="position: relative;">
+        <div class="new-list__item new-list-place__item" data-test="ITEM">
+            <div class="content">
             {% for i in hire %}
-            <div class="new-list__item-info" style="height: 40%; width:90%; background:#ccccff; margin: 2%; padding: 0.5%">
+            <div class="new-list__item-info" class='films_sessions'>
                 <h3 href={{i.name}} class="new-list__item-link" data-test="ITEM-URL">{{i.name}}</h3>
                 <p><img src="../static/img/films/{{i.image_route}}" alt="{{i.name}}" class="poster_img"/></p>
-                <div class="time_block">
 
                     <table style="width: 100%">
                     <tr>
                     {% for j in sess[i.name] %}
                     <th>
-                    <div class="item buy_seance"
-                        style="height: 90px; width:65px; background:#eeeeee;">
+                    <div class="item buy_seance">
+                        <div class='sessions_table'>
                         <div class="time">
                             {{j[0]}}
                             <p class="price">450</p>
                             <a class="price" href="/reservation?title={{i.name}}&time={{j[0]}}&hall={{j[1]}}">
                                 Зал {{j[1] + 1}}
                             </a>
-                        </div>
+                    </div>
                     </div>
                     </th>
                     {% endfor %}
                     </tr>
                 </table>
-
-                </div>
             </div>
             {% endfor %}
+            </div>
         </div>
     </div>
 </form>

@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="static/css/style.css">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+          <link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet'>
     <title>{{ title }}</title>
 </head>
 <body>
 <header>
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="http://127.0.0.1:5000/">Кино от бага</a>
+        <div class='to_main'>
+        <a class="navbar-brand" href="http://127.0.0.1:5000/">
+            <img src="{{ url_for('static', filename='img/bug.jpg') }}" class="rounded float-start" alt="" width="40" height="40">
+            Кино от бага
+        </a>
+    </div>
         {% if current_user.is_authenticated %}
             <a class="navbar-brand" href="/logout">{{ current_user.name }}</a>
         {% else %}
@@ -23,22 +28,28 @@
             </p>
         {% endif %}
     </nav>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-3">
-          <nav class="nav flex-column">
-              <a class="p-1 nav-link active" href="/">Главная</a>
-              <a class="p-1 nav-link" href="/hire">Афиша</a>
-              <a class="p-1 nav-link" href="/sessions">Сеансы</a>
-          </nav>
-        </div>
-      </div>
+
+    <div class="side_bar">
+    <div class="item_in_side_bar">
+        <a class="btn btn-outline-primary" href="/">Главная</a>
     </div>
+    <div class="item_in_side_bar">
+        <a class="btn btn-outline-primary" href="/hire">Афиша</a>
+    </div>
+    <div class="item_in_side_bar"> 
+        <a class="btn btn-outline-primary" href="/sessions">Сеансы</a>
+    </div>
+    </div>
+
 </header>
 <!-- Begin page content -->
+
 <main role="main" class="container">
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
 </main>
+
+<footer>
+    <small class='copyright'>&copy; Copyright 2021, Yandex Lyceum Team</small>
+</footer>
 </body>
 </html>

@@ -1,16 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 style="height:100px; width:1024px; background:#e6a8d7">Афиша</h1>
+<h1 class='header_of_page'>Афиша</h1>
 <form action="" method="post">
     <div class="new-list list-place" data-test="list">
         <div class="new-list__item new-list-place__item" data-test="ITEM">
             {% for i in hire %}
-                <div class="new-list__item-info" style="height:190px; width:1024px; background:#ccccff">
-                    <h3>
-                        <a>{{i.name}}</a>
-                        <p><img src="../static/img/films/{{i.image_route}}" alt="{{i.name}}" class="poster_img"/></p>
-                    </h3>
+                <div class="new-list__item-info">
+                    <div class='content'>
+                        <h3 class='films_afisha'>
+                            <a>{{i.name}}</a>
+                            <p><img src="../static/img/films/{{i.image_route}}" alt="{{i.name}}" class="poster_img"/></p>
+                        </h3>
+                    </div>
                 </div>
             {% endfor %}
         </div>

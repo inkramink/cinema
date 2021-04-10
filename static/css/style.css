@@ -1,19 +1,49 @@
+/* для base */
+
 h1, h2 {
-color: #d22e3a;
-text-align: center;
+    text-align: center;
+}
+
+main {
+    margin-top: 3%;
+    margin-bottom: 30%;
+    position: relative;
+}
+
+.btn-success {
+    background-color: #007bff !important;
+}
+
+.side_bar {
+    z-index: 1;
+    position: fixed;
+    margin-top: 3%;
+    margin-left: 1px;
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    height: 500px;
+    border-right: 2px solid black;
+    padding: 15px 20px;
+    float: left;
+    font-size: 18px;
+}
+
+.item_in_side_bar {
+    margin: 2% 2% 2% 2%;
+    width: 50px;
+}
+
+.to_main:hover {
+    border: black !important;
+    border-width: 1px;
+    background-color: rgb(219, 236, 241);
+    line-height: 1.5 !important;
+    border-radius: .25rem !important;
 }
 
 h4 {
     color:bisque;
-}
-
-.anketa {
-    margin-left: 20px;
-}
-
-.poster_img {
-    width: 10%;
-    height: 13%;
 }
 
 form.login_form {
@@ -32,4 +62,66 @@ nav {
 
 .container {
     flex-flow: wrap;
+    margin-left: 180px;
+}
+
+footer {
+    padding: 30px;
+    height: 80px;
+    width: 100%;
+    position: sticky;
+    background-color: #0568d1;
+    color: white;
+    text-align: center;
+}
+
+.content {
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    font-size: large;
+    padding: 2% 2% 2% 2%;
+}
+
+.main_page_content_text {
+    margin-left: 30px;
+    margin-top: 5px;
+}
+
+.copyright {
+    text-align: center;
+}
+
+/* афиша */
+
+.header_of_page {
+    height:80px;
+    width:1024px;
+    border-bottom: 2px solid black;
+}
+
+.films_afisha {
+    height:190px;
+    width:1024px;
+}
+
+.poster_img {
+    width: 10%;
+    height: 13%;
+}
+
+/* Сеансы  */
+
+.films_sessions {
+    height: 40%;
+    width:90%;
+    margin: 2%;
+    margin-left: 5% !important;
+    padding: 0.5%
+}
+
+.sessions_table {
+    height: 90px;
+    width:65px
 }
