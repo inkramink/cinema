@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<h1>Вставьте сюда картинку плиз</h1>
+<form action="" method="post">
+    <p>{{ form.comment.label }}</p>
+    <p>{{ form.comment }}</p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+</form>
+{% for i in reviews %}
+    <h3>{{i.name}}</h3>
+    <p>{{i.date}}</p>
+    <p>{{i.comment}}</p>
+{% endfor %}
+{% endblock %}

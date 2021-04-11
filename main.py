@@ -3,17 +3,20 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from alice import say
 from data import db_session
 from forms.user import RegisterForm, LoginForm
-from data.users import User
+from forms.write_comment import ReviewForm
+from data.users import User, Anonymous
 from data.films import Films
 from data.halls import Hall
+from data.review import Review
 from data.sessions import Sessions
 from data import schedule
-import requests
+from datetime import date
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 login_manager = LoginManager()
 login_manager.init_app(app)
+login_manager.anonymous_user = Anonymous
 
 
 @login_manager.user_loader
@@ -64,6 +67,24 @@ def hire():
     db_sess = db_session.create_session()
     result = db_sess.query(Films).all()
     return render_template('hire.html', title='Aфиша', hire=result)
+
+
+@app.route('/film-info', methods=['GET', 'POST'])
+def film_info():
+    form = ReviewForm()
+    db_sess = db_session.create_session()
+    film_id = request.args.get('id')
+    if form.comment.data:
+        rev = Review(name=current_user.name,
+                     date=str(date.today()),
+                     comment=form.comment.data,
+                     film_id=film_id)
+        db_sess.add(rev)
+        db_sess.commit()
+        return redirect(url_for('.film_info', id=film_id))
+    reviews = db_sess.query(Review).filter_by(film_id=film_id).all()
+    title = db_sess.query(Films).filter_by(id=film_id).first().name
+    return render_template('film_info.html', title=title, reviews=reviews, form=form)
 
 
 @app.route('/sessions')
