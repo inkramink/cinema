@@ -18,7 +18,7 @@ sessions_for_films = {}
 def do_sessions_for_films():
     global sessions_for_films
     n = 0
-    f = open("static/schedule.txt", encoding='windows-1251').read()
+    f = open("static/schedule.txt", encoding='utf-8').read()
     for i in names.keys():
         sessions_for_films[i] = []
         for j in range(f.count(i)):
