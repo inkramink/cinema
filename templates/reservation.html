@@ -10,7 +10,7 @@
                 {% for j in range(cols) %}
                 <th>
                     {% if seats[i][j] == true %}
-                    <a href="/seat_bought?title={{title}}&time={{time}}&hall={{hall}}&place={{j + 1}}&col={{i + 1}}"
+                    <a
                     type="button" class="btn btn-light item buy_seance time">{{j + 1}}</a>
                     {% else %}
                     <a type="button"

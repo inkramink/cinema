@@ -167,20 +167,6 @@ def login():
     return render_template('login.html', title='Авторизация', form=form)
 
 
-@app.route('/seat_bought', methods=['GET'])
-def seat_bought():
-    title = request.args.get('title')
-    time = request.args.get('time')
-    hall = request.args.get('hall')
-    place = request.args.get('place')
-    col = request.args.get('col')
-    logged = False
-    if current_user.is_authenticated:
-        logged = True
-    return render_template('seat_bought.html', title=title, time=time,
-                           hall=hall, place=place, col=col, logged=logged)
-
-
 @app.route('/logout')
 @login_required
 def logout():
