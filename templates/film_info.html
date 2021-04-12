@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{title}}</h1>
-<h1>Вставьте сюда картинку плиз</h1>
+<h1>{{result.name}}</h1>
+<h1><p><img src="../static/img/films/{{result.image_route}}" alt="{{result.name}}" class="poster_img_comm"/></p></h1>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link href="{{ url_for('static', filename='css/comment_section_style.css') }}" rel='stylesheet'>

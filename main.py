@@ -83,8 +83,8 @@ def film_info():
         db_sess.commit()
         return redirect(url_for('.film_info', id=film_id))
     reviews = db_sess.query(Review).filter_by(film_id=film_id).all()
-    title = db_sess.query(Films).filter_by(id=film_id).first().name
-    return render_template('film_info.html', title=title, reviews=reviews, form=form)
+    result = db_sess.query(Films).all()[int(film_id) - 1]
+    return render_template('film_info.html', result=result, reviews=reviews, form=form)
 
 
 @app.route('/sessions')
