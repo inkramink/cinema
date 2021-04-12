@@ -3,14 +3,61 @@
 {% block content %}
 <h1>{{title}}</h1>
 <h1>Вставьте сюда картинку плиз</h1>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<link href="{{ url_for('static', filename='css/comment_section_style.css') }}" rel='stylesheet'>
+
+<br><br><br>
+
+<!--
 <form action="" method="post">
     <p>{{ form.comment.label }}</p>
     <p>{{ form.comment }}</p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
 </form>
+-->
+
+<section class="container">
+<div class="row">
+
+<form action="" method="post">
+<div class="col-md-12">
+<div class="panel" style='width:60%;'>
+ <div class="panel-body">
+    <p placeholder="Добавьте Ваш комментарий">{{ form.comment }}</p>
+    <p >{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+
+ </div>
+
+ </div>
+</div>
+</form>
+</div>
+
 {% for i in reviews %}
-    <h3>{{i.name}}</h3>
-    <p>{{i.date}}</p>
-    <p>{{i.comment}}</p>
+<div class="row">
+    <div class="panel">
+        <div class="panel-body">
+        <!--===================================================-->
+            <div class="media-block">
+                <div class="media-body">
+                    <div class="mar-btm">
+                        <a class="btn-link text-semibold media-heading box-inline">{{i.name}}</a>
+                        <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i>   {{i.date}}</p>
+                    </div>
+                        <p>{{i.comment}}</p>
+                    <div class="pad-ver">
+                        <div class="btn-group">
+                        <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 {% endfor %}
+</section>
+
 {% endblock %}
