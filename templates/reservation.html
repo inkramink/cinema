@@ -10,19 +10,13 @@
                 {% for j in range(cols) %}
                 <th>
                     {% if seats[i][j] == true %}
-                        <div class="item buy_seance"
-                            style="height: 50px; width:50px; background:#eeeeee;">
-                            <div class="time">
-                                {{j + 1}}
-                            </div>
-                        </div>
+                    <a href="/seat_bought?title={{title}}&time={{time}}&hall={{hall}}&place={{j + 1}}&col={{i + 1}}"
+                    type="button" class="btn btn-light item buy_seance time">{{j + 1}}</a>
                     {% else %}
-                        <div class="item buy_seance"
-                            style="height: 50px; width:50px; background:#ffcc00;">
-                            <div class="time">
-                                <a href="/reservation/buy?title={{title}}&time={{time}}&hall={{hall}}&place={{j + 1}}&col={{i + 1}}">
-                                    {{j + 1}}</a>
-                            </div>
+                    <a type="button"
+                     class="btn btn-warning item buy_seance seat"
+                     href="/reservation/buy?title={{title}}&time={{time}}&hall={{hall}}&place={{j + 1}}&col={{i + 1}}"
+                     >{{j + 1}}</a>
                         </div>
                     {% endif %}
                 </th>

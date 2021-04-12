@@ -125,3 +125,15 @@ footer {
     height: 90px;
     width:65px
 }
+
+.item {
+    height: 50px;
+    width:50px;
+    background:#eeeeee;
+}
+
+.seat {
+    height: 50px !important;
+    width:50px !important;
+    background:#ffcc00;
+}
