@@ -11,6 +11,9 @@ from data.review import Review
 from data.sessions import Sessions
 from data import schedule
 from datetime import date
+from jinja2.utils import markupsafe
+from markupsafe import Markup
+markupsafe.Markup()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
